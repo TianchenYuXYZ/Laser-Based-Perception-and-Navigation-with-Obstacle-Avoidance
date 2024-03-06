@@ -1,0 +1,16 @@
+<launch>
+	<node name="stage" pkg="stage_ros" type="stageros"
+	      args="$(find lab2)/world/bug2.world" />
+
+	<node pkg="lab2" name="robot" type="robot.py" output="screen"/>
+	<node pkg="lab2" name="ransac" type="ransac.py" output="screen"/>
+	<node pkg="lab2" name="bug2" type="bug2.py" output="screen"/>
+	<!-- <node pkg="lab2" name="build map" type="test.py" output="screen"/> -->
+
+	<!-- car up -->
+	<arg name="racecar_xacro" default="$(find lab2)/racecar.xacro"/>
+	<param name="robot_description" command="xacro --inorder '$(arg racecar_xacro)'"/>
+    <!-- rviz up -->
+	<node pkg="rviz" type="rviz" name="rviz" args="-d $(find lab2)/map.rviz" output="screen"/>
+
+</launch>
